@@ -113,7 +113,7 @@ namespace SimpleTodo.Controllers
         [HttpGet]
         public ActionResult ChangePassword()
         {
-            return View();
+//            return View();
         }
 
         //
@@ -150,7 +150,7 @@ namespace SimpleTodo.Controllers
 //            }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+//            return View(model);
         }
 
         //
@@ -159,7 +159,7 @@ namespace SimpleTodo.Controllers
         [HttpGet]
         public ActionResult ChangePasswordSuccess()
         {
-            return View();
+//            return View();
         }
 
         #region Status Codes
