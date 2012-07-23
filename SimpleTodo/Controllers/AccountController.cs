@@ -11,10 +11,12 @@ namespace SimpleTodo.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly Context _context = new Context();
 
         //
         // GET: /Account/LogOn
 
+        [HttpGet]
         public ActionResult LogOn()
         {
             return View();
@@ -26,26 +28,30 @@ namespace SimpleTodo.Controllers
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
-            if (ModelState.IsValid)
+            if(_context.Users.Any(i => i.UserName == model.UserName))
             {
-                if (Membership.ValidateUser(model.UserName, model.Password))
-                {
-                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                }
+                return RedirectToAction("Index", "Home");
             }
+//            if (ModelState.IsValid)
+//            {
+//                if (Membership.ValidateUser(model.UserName, model.Password))
+//                {
+//                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+//                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+//                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+//                    {
+//                        return Redirect(returnUrl);
+//                    }
+//                    else
+//                    {
+//                        return RedirectToAction("Index", "Home");
+//                    }
+//                }
+//                else
+//                {
+//                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+//                }
+//            }
 
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -54,6 +60,7 @@ namespace SimpleTodo.Controllers
         //
         // GET: /Account/LogOff
 
+        [HttpGet]
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
@@ -64,6 +71,7 @@ namespace SimpleTodo.Controllers
         //
         // GET: /Account/Register
 
+        [HttpGet]
         public ActionResult Register()
         {
             return View();
@@ -73,26 +81,28 @@ namespace SimpleTodo.Controllers
         // POST: /Account/Register
 
         [HttpPost]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(LogOnModel model)
         {
-            if (ModelState.IsValid)
-            {
-                // Attempt to register the user
-                MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
+            _context.Users.Add(model);
+            _context.SaveChanges();
+//            if (ModelState.IsValid)
+//            {
+////             Attempt to register the user
+//                MembershipCreateStatus createStatus;
+//                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
+//
+//                if (createStatus == MembershipCreateStatus.Success)
+//                {
+//                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+//                    return RedirectToAction("Index", "Home");
+//                }
+//                else
+//                {
+//                    ModelState.AddModelError("", ErrorCodeToString(createStatus));
+//                }
+//            }
 
-                if (createStatus == MembershipCreateStatus.Success)
-                {
-                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", ErrorCodeToString(createStatus));
-                }
-            }
-
-            // If we got this far, something failed, redisplay form
+//             If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -100,6 +110,7 @@ namespace SimpleTodo.Controllers
         // GET: /Account/ChangePassword
 
         [Authorize]
+        [HttpGet]
         public ActionResult ChangePassword()
         {
             return View();
@@ -110,33 +121,33 @@ namespace SimpleTodo.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult ChangePassword(ChangePasswordModel model)
+        public ActionResult ChangePassword(LogOnModel model)
         {
-            if (ModelState.IsValid)
-            {
-
-                // ChangePassword will throw an exception rather
-                // than return false in certain failure scenarios.
-                bool changePasswordSucceeded;
-                try
-                {
-                    MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
-                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
-                }
-                catch (Exception)
-                {
-                    changePasswordSucceeded = false;
-                }
-
-                if (changePasswordSucceeded)
-                {
-                    return RedirectToAction("ChangePasswordSuccess");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-                }
-            }
+//            if (ModelState.IsValid)
+//            {
+//
+//                // ChangePassword will throw an exception rather
+//                // than return false in certain failure scenarios.
+//                bool changePasswordSucceeded;
+//                try
+//                {
+//                    MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
+//                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
+//                }
+//                catch (Exception)
+//                {
+//                    changePasswordSucceeded = false;
+//                }
+//
+//                if (changePasswordSucceeded)
+//                {
+//                    return RedirectToAction("ChangePasswordSuccess");
+//                }
+//                else
+//                {
+//                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+//                }
+//            }
 
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -145,6 +156,7 @@ namespace SimpleTodo.Controllers
         //
         // GET: /Account/ChangePasswordSuccess
 
+        [HttpGet]
         public ActionResult ChangePasswordSuccess()
         {
             return View();

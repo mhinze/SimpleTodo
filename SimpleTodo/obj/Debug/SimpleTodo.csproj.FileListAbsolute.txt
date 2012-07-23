@@ -5,3 +5,4 @@ C:\Users\John\documents\visual studio 2010\Projects\SimpleTodo\SimpleTodo\bin\En
 C:\Users\John\documents\visual studio 2010\Projects\SimpleTodo\SimpleTodo\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\John\documents\visual studio 2010\Projects\SimpleTodo\SimpleTodo\obj\Debug\SimpleTodo.dll
 C:\Users\John\documents\visual studio 2010\Projects\SimpleTodo\SimpleTodo\obj\Debug\SimpleTodo.pdb
+C:\Users\John\Documents\Visual Studio 2010\Projects\SimpleTodo\SimpleTodo\bin\System.Data.SqlServerCe.Entity.dll

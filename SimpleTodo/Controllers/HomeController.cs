@@ -19,5 +19,10 @@ namespace SimpleTodo.Controllers
         {
             return View();
         }
+
+        public ActionResult Todos()
+        {
+            return View();
+        }
     }
 }
