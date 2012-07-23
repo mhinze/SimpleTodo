@@ -106,62 +106,6 @@ namespace SimpleTodo.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ChangePassword
-
-        [Authorize]
-        [HttpGet]
-        public ActionResult ChangePassword()
-        {
-//            return View();
-        }
-
-        //
-        // POST: /Account/ChangePassword
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult ChangePassword(LogOnModel model)
-        {
-//            if (ModelState.IsValid)
-//            {
-//
-//                // ChangePassword will throw an exception rather
-//                // than return false in certain failure scenarios.
-//                bool changePasswordSucceeded;
-//                try
-//                {
-//                    MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
-//                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
-//                }
-//                catch (Exception)
-//                {
-//                    changePasswordSucceeded = false;
-//                }
-//
-//                if (changePasswordSucceeded)
-//                {
-//                    return RedirectToAction("ChangePasswordSuccess");
-//                }
-//                else
-//                {
-//                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-//                }
-//            }
-
-            // If we got this far, something failed, redisplay form
-//            return View(model);
-        }
-
-        //
-        // GET: /Account/ChangePasswordSuccess
-
-        [HttpGet]
-        public ActionResult ChangePasswordSuccess()
-        {
-//            return View();
-        }
-
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {
