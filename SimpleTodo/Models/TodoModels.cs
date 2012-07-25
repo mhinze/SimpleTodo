@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 
 namespace SimpleTodo.Models
 {
-    public class TodoContext : DbContext
-    {
-        public DbSet<TodoList> Lists { get; set; }
-    }
-
     public class TodoList : Entity
     {
         [Required]

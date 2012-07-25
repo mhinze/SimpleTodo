@@ -8,6 +8,7 @@
 
 <h2>Todo Lists</h2>
 
+<% using (Html.BeginForm()) {%>
     <div>
         <fieldset>
             <legend>Note 0</legend>
@@ -29,5 +30,6 @@
             </p>
         </fieldset>
     </div>
+<% } %>
 
 </asp:Content>
