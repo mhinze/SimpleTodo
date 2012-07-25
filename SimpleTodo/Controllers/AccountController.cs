@@ -28,30 +28,18 @@ namespace SimpleTodo.Controllers
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
-            if(_context.Users.Any(i => i.UserName == model.UserName))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home");
+                if (_context.Users.Any(i => i.UserName == model.UserName))
+                {
+                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "The user name is unknown, please register.");
+                }
             }
-//            if (ModelState.IsValid)
-//            {
-//                if (Membership.ValidateUser(model.UserName, model.Password))
-//                {
-//                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-//                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-//                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-//                    {
-//                        return Redirect(returnUrl);
-//                    }
-//                    else
-//                    {
-//                        return RedirectToAction("Index", "Home");
-//                    }
-//                }
-//                else
-//                {
-//                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-//                }
-//            }
 
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -83,26 +71,16 @@ namespace SimpleTodo.Controllers
         [HttpPost]
         public ActionResult Register(LogOnModel model)
         {
-            _context.Users.Add(model);
-            _context.SaveChanges();
-//            if (ModelState.IsValid)
-//            {
-////             Attempt to register the user
-//                MembershipCreateStatus createStatus;
-//                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
-//
-//                if (createStatus == MembershipCreateStatus.Success)
-//                {
-//                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-//                    return RedirectToAction("Index", "Home");
-//                }
-//                else
-//                {
-//                    ModelState.AddModelError("", ErrorCodeToString(createStatus));
-//                }
-//            }
+            if (ModelState.IsValid)
+            {
+                //Attempt to register the user
+                _context.Users.Add(model);
+                _context.SaveChanges();
+                FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+                return RedirectToAction("Index", "Home");
+            }
 
-//             If we got this far, something failed, redisplay form
+            //If we got this far, something failed, redisplay form
             return View(model);
         }
 

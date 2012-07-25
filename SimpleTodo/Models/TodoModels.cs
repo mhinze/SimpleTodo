@@ -10,9 +10,18 @@ namespace SimpleTodo.Models
         public DbSet<TodoList> Lists { get; set; }
     }
 
-    public class TodoList
+    public class TodoList : Entity
     {
+        [Required]
+        [Display(Name = "Note Title")]
         public string Title { get; set; }
 
+        [Display(Name = "Note Body")]
+        public string List { get; set; }
+
+        public TodoList()
+        {
+            Title = "New Note";
+        }
     }
 }

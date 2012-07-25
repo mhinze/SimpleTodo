@@ -6,3 +6,11 @@ C:\Users\John\documents\visual studio 2010\Projects\SimpleTodo\SimpleTodo\obj\De
 C:\Users\John\documents\visual studio 2010\Projects\SimpleTodo\SimpleTodo\obj\Debug\SimpleTodo.dll
 C:\Users\John\documents\visual studio 2010\Projects\SimpleTodo\SimpleTodo\obj\Debug\SimpleTodo.pdb
 C:\Users\John\Documents\Visual Studio 2010\Projects\SimpleTodo\SimpleTodo\bin\System.Data.SqlServerCe.Entity.dll
+C:\Users\jcrowe\Documents\Visual Studio 2010\Projects\SimpleTodo\SimpleTodo\bin\SimpleTodo.dll
+C:\Users\jcrowe\Documents\Visual Studio 2010\Projects\SimpleTodo\SimpleTodo\bin\SimpleTodo.pdb
+C:\Users\jcrowe\Documents\Visual Studio 2010\Projects\SimpleTodo\SimpleTodo\bin\EntityFramework.dll
+C:\Users\jcrowe\Documents\Visual Studio 2010\Projects\SimpleTodo\SimpleTodo\bin\System.Data.SqlServerCe.Entity.dll
+C:\Users\jcrowe\Documents\Visual Studio 2010\Projects\SimpleTodo\SimpleTodo\bin\EntityFramework.xml
+C:\Users\jcrowe\Documents\Visual Studio 2010\Projects\SimpleTodo\SimpleTodo\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\jcrowe\Documents\Visual Studio 2010\Projects\SimpleTodo\SimpleTodo\obj\Debug\SimpleTodo.dll
+C:\Users\jcrowe\Documents\Visual Studio 2010\Projects\SimpleTodo\SimpleTodo\obj\Debug\SimpleTodo.pdb

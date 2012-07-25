@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Configuration.cs" />
+    <Compile Include="Models\EntityModel.cs" />
     <Compile Include="Models\TodoModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
