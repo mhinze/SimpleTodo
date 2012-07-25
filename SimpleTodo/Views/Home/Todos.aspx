@@ -19,10 +19,21 @@
             </div>
             
             <div class="editor-label">
+                <%: Html.DisplayTextFor(m => m.Date) %>
+            </div>
+            
+            <div class="editor-label">
                 <%: Html.LabelFor(m => m.List) %>
             </div>
             <div class="editor-field">
                 <%: Html.TextAreaFor(m => m.List) %>
+            </div>
+            
+            <div class="editor-label">
+                <%: Html.LabelFor(m => m.Tags) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(m => m.Tags) %>
             </div>
                 
             <p>
