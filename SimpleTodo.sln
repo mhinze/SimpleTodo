@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTodo", "SimpleTodo\SimpleTodo.csproj", "{6F0432F4-2247-42A5-A410-C64F4AC7F5CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTodo", "SimpleTodo\SimpleTodo.csproj", "{7ACB31CB-BC08-426E-AD17-D67D7F3E2B3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6F0432F4-2247-42A5-A410-C64F4AC7F5CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6F0432F4-2247-42A5-A410-C64F4AC7F5CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6F0432F4-2247-42A5-A410-C64F4AC7F5CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6F0432F4-2247-42A5-A410-C64F4AC7F5CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ACB31CB-BC08-426E-AD17-D67D7F3E2B3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ACB31CB-BC08-426E-AD17-D67D7F3E2B3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ACB31CB-BC08-426E-AD17-D67D7F3E2B3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ACB31CB-BC08-426E-AD17-D67D7F3E2B3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

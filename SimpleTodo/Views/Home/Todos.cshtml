@@ -1,0 +1,43 @@
+﻿@model SimpleTodo.Models.TodoList
+
+@{
+    ViewBag.Title = "Todos";
+}
+
+<h2>Todo Lists</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        <fieldset>
+            <legend>Note 0</legend>
+                
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Title)
+                @Html.ValidationMessageFor(m => m.Title)
+            </div>
+            
+            <div class="editor-label">
+                @Html.DisplayTextFor(m => m.Date)
+            </div>
+            
+            <div class="editor-label">
+                @Html.LabelFor(m => m.List)
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(m => m.List)
+            </div>
+            
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Tags)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Tags)
+            </div>
+                
+            <p>
+                <input type="submit" value="Submit" />
+            </p>
+        </fieldset>
+    </div>
+}
