@@ -1,0 +1,10 @@
+#Resharper Files if exist
+_ReSharper.*
+*.resharper
+
+#Visual Studio Files
+
+#nuGet Packages
+packages/
+
+
