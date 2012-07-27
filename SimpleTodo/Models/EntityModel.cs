@@ -1,6 +1,18 @@
-﻿
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-public class Entity
+namespace SimpleTodo.Models
 {
-    public int Id { get; set; }
+    public class Entity
+    {
+        public int Id { get; set; }
+
+        [Display(Name = "Created on")]
+        public DateTime DateCreated { get; set; }
+
+        public Entity()
+        {
+            DateCreated = DateTime.Now;
+        }
+    }
 }

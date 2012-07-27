@@ -2,22 +2,25 @@
 using System.Data.Entity.Migrations;
 using SimpleTodo.Models;
 
-public class Context : DbContext
+namespace SimpleTodo.Models
 {
-    public DbSet<LogOnModel> Users { get; set; }
-    public DbSet<TodoList> Lists { get; set; }
-
-    protected override void OnModelCreating(DbModelBuilder modelBuilder)
+    public class Context : DbContext
     {
-        Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, Configuration>());
+        public DbSet<LogOnModel> Users { get; set; }
+        public DbSet<TodoItem> TodoList { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, Configuration>());
+        }
     }
-}
 
-public class Configuration : DbMigrationsConfiguration<Context>
-{
-    public Configuration()
+    public class Configuration : DbMigrationsConfiguration<Context>
     {
-        AutomaticMigrationsEnabled = true;
-        AutomaticMigrationDataLossAllowed = true;
+        public Configuration()
+        {
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
+        }
     }
 }

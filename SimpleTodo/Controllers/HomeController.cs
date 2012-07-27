@@ -13,7 +13,7 @@ namespace SimpleTodo.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Message = "Welcome to ASP.NET MVC!";
+            ViewBag.Message = "Welcome to SimpleTodo!";
             return View();
         }
 
@@ -27,17 +27,18 @@ namespace SimpleTodo.Controllers
         [HttpGet]
         public ActionResult Todos()
         {
+            ViewData["TodoList"] = _context.TodoList;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Todos(TodoList model)
+        public ActionResult Todos(TodoItem model)
         {
-            if(ModelState.IsValid)
+            if(ModelState.IsValid && (model.Content != null))
             {
                 try
                 {
-                    _context.Lists.Add(model);
+                    _context.TodoList.Add(model);
                     _context.SaveChanges();
                 } 
                 catch (Exception e)
@@ -47,7 +48,7 @@ namespace SimpleTodo.Controllers
                 
             }
 
-            return View();
+            return RedirectToAction("Todos", "Home");
         }
     }
 }

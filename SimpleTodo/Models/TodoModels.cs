@@ -1,30 +1,16 @@
-﻿using System;
-using System.Data.Entity;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Migrations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SimpleTodo.Models
 {
-    public class TodoList : Entity
+    public class TodoItem : Entity
     {
-        [Display(Name = "Note Title")]
-        public string Title { get; set; }
+        public string Content { get; set; }
 
-        [Display(Name = "Date")]
-        public DateTime Date { get; set; }
+        public bool IsChecked { get; set; }
 
-        [Display(Name = "Note Body")]
-        public string List { get; set; }
-
-        [Display(Name = "Tags")]
-        public string Tags { get; set; }
-
-        public TodoList()
+        public TodoItem()
         {
-            Title = "New Note";
-            Date= DateTime.Now;
+            Content = "New Todo";
         }
     }
 }

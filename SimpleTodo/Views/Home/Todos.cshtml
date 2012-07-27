@@ -1,4 +1,6 @@
-﻿@model SimpleTodo.Models.TodoList
+﻿@using System.Data.Entity
+@using SimpleTodo.Models
+@model SimpleTodo.Models.TodoItem
 
 @{
     ViewBag.Title = "Todos";
@@ -9,35 +11,33 @@
 @using (Html.BeginForm())
 {
     <div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.Content)
+            <input type="submit" value="Create new todo"/>
+        </div>
         <fieldset>
-            <legend>Note 0</legend>
-                
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.Title)
-                @Html.ValidationMessageFor(m => m.Title)
-            </div>
-            
-            <div class="editor-label">
-                @Html.DisplayTextFor(m => m.Date)
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(m => m.List)
-            </div>
-            <div class="editor-field">
-                @Html.TextAreaFor(m => m.List)
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(m => m.Tags)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.Tags)
-            </div>
-                
-            <p>
-                <input type="submit" value="Submit" />
-            </p>
+            <legend>Pending</legend>
+            @foreach (var todoItem in (DbSet<TodoItem>) ViewData["TodoList"])
+            {
+                <p>
+                    @Html.CheckBoxFor(ischeck => todoItem.IsChecked)
+                    @todoItem.Content
+                </p>
+            }
         </fieldset>
+        <fieldset>
+            <legend>In Progress</legend>
+                            
+
+        </fieldset>
+        <fieldset>
+            <legend>Complete</legend>
+                            
+
+        </fieldset>
+        <p>
+            <input type="submit" value="Promote" />
+            <input type="submit" value="Delete" />
+        </p>
     </div>
 }
