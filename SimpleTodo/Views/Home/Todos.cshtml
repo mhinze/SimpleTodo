@@ -25,7 +25,7 @@
                 <p>
                     @if (todoItem.Status == "Pending")
                     {
-                        @Html.CheckBox(todoItem.Id.ToString("d"), todoItem.IsChecked) @todoItem.Content
+                        @Html.CheckBox(todoItem.Id.ToString("d"), false) @todoItem.Content
                     }
                 </p>
             }
@@ -37,7 +37,7 @@
                 <p>
                     @if (todoItem.Status == "Doing")
                     {
-                        @Html.CheckBox(todoItem.Id.ToString("d"), todoItem.IsChecked) @todoItem.Content
+                        @Html.CheckBox(todoItem.Id.ToString("d"), false) @todoItem.Content
                     }
                 </p>
             }
@@ -49,7 +49,7 @@
                 <p>
                     @if (todoItem.Status == "Done")
                     {
-                        @Html.CheckBox(todoItem.Id.ToString("d"), todoItem.IsChecked) @todoItem.Content
+                        @Html.CheckBox(todoItem.Id.ToString("d"), false) @todoItem.Content
                     }
                 </p>
             }
