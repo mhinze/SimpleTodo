@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Reflection;
 using System.Web.Mvc;
 using SimpleTodo.Models;
 
@@ -27,12 +25,12 @@ namespace SimpleTodo.Controllers
         [HttpGet]
         public ActionResult Todos()
         {
-            ViewData["TodoList"] = _context.TodoList;
+            ViewBag.TodoList = _context.TodoList;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Todos(TodoItem model)
+        public ActionResult CreateTodo(TodoItem model)
         {
             if(ModelState.IsValid && (model.Content != null))
             {
@@ -45,10 +43,77 @@ namespace SimpleTodo.Controllers
                 {
                     Console.WriteLine(e.StackTrace);
                 }
-                
             }
 
             return RedirectToAction("Todos", "Home");
+        }
+
+        [HttpPost]
+        [ActionName("TodoAction")]
+        [AcceptParameter(Name = "button", Value = "Promote")]
+        public ActionResult PromoteTodo(FormCollection formData)
+        {
+            foreach (var key in formData.AllKeys)
+            {
+                try
+                {
+                    //Retrieve entities by their primary key values.
+                    var todoItem = _context.TodoList.Find(Int32.Parse(key));
+                    //Update their boolean values to checked or unchecked.
+                    if(formData[key] == "true,false")
+                    {
+                        todoItem.Promote();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write(e.StackTrace);
+                }
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction("Todos", "Home");
+        }
+
+        [HttpPost]
+        [ActionName("TodoAction")]
+        [AcceptParameter(Name = "button", Value = "Delete")]
+        public ActionResult DeleteTodo(FormCollection formData)
+        {
+            foreach (var key in formData.AllKeys)
+            {
+                try
+                {
+                    //Retrieve entities by their primary key values.
+                    var todoItem = _context.TodoList.Find(Int32.Parse(key));
+                    //Update their boolean values to checked or unchecked.
+                    if (formData[key] == "true,false")
+                    {
+                        _context.TodoList.Remove(todoItem);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write(e.StackTrace);
+                }
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction("Todos", "Home");
+        }
+    }
+
+
+
+    public class AcceptParameterAttribute : ActionMethodSelectorAttribute
+    {
+        public string Name { get; set; }
+        public string Value { get; set; }
+
+        public override bool IsValidForRequest(ControllerContext controllerContext, MethodInfo methodInfo)
+        {
+            var request = controllerContext.RequestContext.HttpContext.Request;
+            return request.Form[this.Name] == this.Value;
         }
     }
 }

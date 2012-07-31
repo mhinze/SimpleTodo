@@ -1,6 +1,6 @@
 ﻿@using System.Data.Entity
 @using SimpleTodo.Models
-@model SimpleTodo.Models.TodoItem
+@model TodoItem
 
 @{
     ViewBag.Title = "Todos";
@@ -8,36 +8,55 @@
 
 <h2>Todo Lists</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("CreateTodo", "Home"))
+{
+    <div class="editor-field">
+        @Html.TextBoxFor(m => Model.Content) <input type="submit" value="Create"/>
+    </div>
+}
+
+@using (Html.BeginForm("TodoAction", "Home"))
 {
     <div>
-        <div class="editor-field">
-            @Html.TextBoxFor(m => m.Content)
-            <input type="submit" value="Create new todo"/>
-        </div>
         <fieldset>
             <legend>Pending</legend>
-            @foreach (var todoItem in (DbSet<TodoItem>) ViewData["TodoList"])
+            @foreach (var todoItem in (DbSet<TodoItem>) ViewBag.TodoList)
             {
                 <p>
-                    @Html.CheckBoxFor(ischeck => todoItem.IsChecked)
-                    @todoItem.Content
+                    @if (todoItem.Status == "Pending")
+                    {
+                        @Html.CheckBox(todoItem.Id.ToString("d"), todoItem.IsChecked) @todoItem.Content
+                    }
                 </p>
             }
         </fieldset>
         <fieldset>
             <legend>In Progress</legend>
-                            
-
+            @foreach (var todoItem in (DbSet<TodoItem>) ViewBag.TodoList)
+            {
+                <p>
+                    @if (todoItem.Status == "Doing")
+                    {
+                        @Html.CheckBox(todoItem.Id.ToString("d"), todoItem.IsChecked) @todoItem.Content
+                    }
+                </p>
+            }
         </fieldset>
         <fieldset>
             <legend>Complete</legend>
-                            
-
+             @foreach (var todoItem in (DbSet<TodoItem>) ViewBag.TodoList)
+            {
+                <p>
+                    @if (todoItem.Status == "Done")
+                    {
+                        @Html.CheckBox(todoItem.Id.ToString("d"), todoItem.IsChecked) @todoItem.Content
+                    }
+                </p>
+            }
         </fieldset>
         <p>
-            <input type="submit" value="Promote" />
-            <input type="submit" value="Delete" />
+            <input type="submit" name="button" value="Promote" />
+            <input type="submit" name="button" value="Delete" />
         </p>
     </div>
 }

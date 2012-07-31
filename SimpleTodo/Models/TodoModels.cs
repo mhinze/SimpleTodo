@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿    using System.ComponentModel.DataAnnotations;
 
 namespace SimpleTodo.Models
 {
@@ -6,11 +6,24 @@ namespace SimpleTodo.Models
     {
         public string Content { get; set; }
 
-        public bool IsChecked { get; set; }
+        public string Status { get; private set; }
 
         public TodoItem()
         {
-            Content = "New Todo";
+            Status = "Pending";
+        }
+
+        public void Promote()
+        {
+            if (Status == "Pending")
+            {
+                Status = "Doing";
+            } else if (Status == "Doing")
+            {
+                Status = "Done";
+            }
         }
     }
+
+
 }
