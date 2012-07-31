@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Reflection;
+using System.Linq;
 using System.Web.Mvc;
 using SimpleTodo.Models;
 
@@ -7,7 +7,6 @@ namespace SimpleTodo.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly Context _context = new Context();
 
         public ActionResult Index()
         {
@@ -23,21 +22,21 @@ namespace SimpleTodo.Controllers
         //
         // GET: /Todo/
         [HttpGet]
-        public ActionResult Todos()
+        public ActionResult CreateTodo()
         {
-            ViewBag.TodoList = _context.TodoList;
             return View();
         }
 
         [HttpPost]
         public ActionResult CreateTodo(TodoItem model)
         {
+            var context = new Context();
             if(ModelState.IsValid && (model.Content != null))
             {
                 try
                 {
-                    _context.TodoList.Add(model);
-                    _context.SaveChanges();
+                    context.List.Add(model);
+                    context.SaveChanges();
                 } 
                 catch (Exception e)
                 {
@@ -48,72 +47,29 @@ namespace SimpleTodo.Controllers
             return RedirectToAction("Todos", "Home");
         }
 
-        [HttpPost]
-        [ActionName("TodoAction")]
-        [AcceptParameter(Name = "button", Value = "Promote")]
-        public ActionResult PromoteTodo(FormCollection formData)
+        [HttpGet]
+        public ActionResult Todos()
         {
-            foreach (var key in formData.AllKeys)
-            {
-                try
-                {
-                    //Retrieve entities by their primary key values.
-                    var todoItem = _context.TodoList.Find(Int32.Parse(key));
-                    //Update their boolean values to checked or unchecked.
-                    if(formData[key] == "true,false")
-                    {
-                        todoItem.Promote();
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.Write(e.StackTrace);
-                }
-            }
-
-            _context.SaveChanges();
-            return RedirectToAction("Todos", "Home");
+            var context = new Context();
+            return View(context);
         }
 
         [HttpPost]
-        [ActionName("TodoAction")]
-        [AcceptParameter(Name = "button", Value = "Delete")]
-        public ActionResult DeleteTodo(FormCollection formData)
+        public ActionResult PromoteTodo(Context context)
         {
-            foreach (var key in formData.AllKeys)
+            var doing = context.GetDoing();
+            var selected = context.GetSelected();
+            if (doing == selected)
             {
-                try
-                {
-                    //Retrieve entities by their primary key values.
-                    var todoItem = _context.TodoList.Find(Int32.Parse(key));
-                    //Update their boolean values to checked or unchecked.
-                    if (formData[key] == "true,false")
-                    {
-                        _context.TodoList.Remove(todoItem);
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.Write(e.StackTrace);
-                }
+                context.List.Remove(selected);
+            }else if (doing == null)
+            {
+                selected.Promote();
+                selected.Updated = DateTime.Now;
             }
 
-            _context.SaveChanges();
+            context.SaveChanges();
             return RedirectToAction("Todos", "Home");
-        }
-    }
-
-
-
-    public class AcceptParameterAttribute : ActionMethodSelectorAttribute
-    {
-        public string Name { get; set; }
-        public string Value { get; set; }
-
-        public override bool IsValidForRequest(ControllerContext controllerContext, MethodInfo methodInfo)
-        {
-            var request = controllerContext.RequestContext.HttpContext.Request;
-            return request.Form[this.Name] == this.Value;
         }
     }
 }

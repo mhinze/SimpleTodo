@@ -1,0 +1,14 @@
+﻿@model SimpleTodo.Models.TodoItem
+
+@{
+    ViewBag.Title = "CreateTodo";
+}
+
+<h2>CreateTodo</h2>
+
+@using (Html.BeginForm("CreateTodo", "Home"))
+{
+    <div class="editor-field">
+        @Html.TextBoxFor(m => Model.Content) <input type="submit" value="Create"/>
+    </div>
+}

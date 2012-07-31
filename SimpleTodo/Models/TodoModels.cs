@@ -1,4 +1,4 @@
-﻿    using System.ComponentModel.DataAnnotations;
+﻿using System;
 
 namespace SimpleTodo.Models
 {
@@ -10,18 +10,23 @@ namespace SimpleTodo.Models
 
         public TodoItem()
         {
-            Status = "Pending";
+            Status = "Todo";
         }
 
         public void Promote()
         {
-            if (Status == "Pending")
+            if (Status == "Todo")
             {
                 Status = "Doing";
-            } else if (Status == "Doing")
+            } else if (Status != "Doing")
             {
-                Status = "Done";
+                throw new Exception("Invalid TodoItem State.");
             }
+        }
+
+        public bool IsInProgress()
+        {
+            return Status == "Doing";
         }
     }
 

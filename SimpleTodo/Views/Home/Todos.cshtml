@@ -1,6 +1,4 @@
-﻿@using System.Data.Entity
-@using SimpleTodo.Models
-@model TodoItem
+﻿@model SimpleTodo.Models.Context
 
 @{
     ViewBag.Title = "Todos";
@@ -8,55 +6,35 @@
 
 <h2>Todo Lists</h2>
 
-@using (Html.BeginForm("CreateTodo", "Home"))
-{
-    <div class="editor-field">
-        @Html.TextBoxFor(m => Model.Content) <input type="submit" value="Create"/>
-    </div>
-}
-
-@using (Html.BeginForm("TodoAction", "Home"))
+@using (Html.BeginForm("PromoteTodo", "Home"))
 {
     <div>
+        <p>@Html.ActionLink("Create Todo", "CreateTodo")</p>
         <fieldset>
             <legend>Pending</legend>
-            @foreach (var todoItem in (DbSet<TodoItem>) ViewBag.TodoList)
+            @foreach (var todoItem in Model.GetTodos())
             {
                 <p>
-                    @if (todoItem.Status == "Pending")
-                    {
-                        @Html.CheckBox(todoItem.Id.ToString("d"), false) @todoItem.Content
-                    }
+                    @Html.RadioButtonFor(s => s.SelectedTodo, todoItem.Id)
+                    @todoItem.Content
                 </p>
             }
         </fieldset>
         <fieldset>
             <legend>In Progress</legend>
-            @foreach (var todoItem in (DbSet<TodoItem>) ViewBag.TodoList)
+            @{var doing = Model.GetDoing();}
+            @if(doing != null)
             {
+                var timeinprogress = DateTime.Now - doing.Updated;
                 <p>
-                    @if (todoItem.Status == "Doing")
-                    {
-                        @Html.CheckBox(todoItem.Id.ToString("d"), false) @todoItem.Content
-                    }
+                    @Html.RadioButtonFor(s => s.SelectedTodo, doing.Id)
+                    @doing.Content - in progress for 
+                    @timeinprogress.ToString("hh") :
+                    @timeinprogress.ToString("mm") :
+                    @timeinprogress.ToString("ss")
                 </p>
             }
         </fieldset>
-        <fieldset>
-            <legend>Complete</legend>
-             @foreach (var todoItem in (DbSet<TodoItem>) ViewBag.TodoList)
-            {
-                <p>
-                    @if (todoItem.Status == "Done")
-                    {
-                        @Html.CheckBox(todoItem.Id.ToString("d"), false) @todoItem.Content
-                    }
-                </p>
-            }
-        </fieldset>
-        <p>
-            <input type="submit" name="button" value="Promote" />
-            <input type="submit" name="button" value="Delete" />
-        </p>
+        <input type="submit" value="Promote" />
     </div>
 }

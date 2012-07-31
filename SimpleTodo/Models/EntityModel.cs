@@ -1,20 +1,75 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Objects;
+using System.Web.Mvc;
 
 namespace SimpleTodo.Models
 {
-    public class Entity
+    public abstract class Entity
     {
-        [Key]
-        public int Id { get; set; }
-
-        [Display(Name = "Created on")]
-        public DateTime DateCreated { get; set; }
-
-        public Entity()
+        protected Entity()
         {
-            DateCreated = DateTime.Now;
+            Created = DateTime.Now;
+            Updated = DateTime.Now;
+        }
+
+        [Key]
+        public long Id { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public DateTime Created { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public DateTime Updated { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as Entity;
+
+            if (other == null)
+                return false;
+
+            if (ReferenceEquals(this, other))
+                return true;
+
+            bool typesMatch = GetUnproxiedType().Equals(other.GetUnproxiedType());
+
+            bool idsMatch = PersistentAndSame(other);
+
+            return typesMatch && idsMatch;
+        }
+
+        public override int GetHashCode()
+        {
+            // ReSharper disable BaseObjectGetHashCodeCallInGetHashCode
+            // http://msdn.microsoft.com/en-us/library/system.object.gethashcode(v=VS.110).aspx
+            if (IsTransient()) return base.GetHashCode();
+            // ReSharper restore BaseObjectGetHashCodeCallInGetHashCode
+            unchecked
+            {
+                return (GetUnproxiedType().GetHashCode() * 31) ^ Id.GetHashCode();
+            }
+        }
+
+        public static bool operator ==(Entity left, Entity right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Entity left, Entity right)
+        {
+            return !Equals(left, right);
+        }
+
+        bool PersistentAndSame(Entity compareTo)
+        {
+            return (!Id.Equals(default(long))) &&
+                    (!compareTo.Id.Equals(default(long))) && Id.Equals(compareTo.Id);
+        }
+
+        bool IsTransient()
+        {
+            return Id == default(long);
         }
 
         public Type GetUnproxiedType()
