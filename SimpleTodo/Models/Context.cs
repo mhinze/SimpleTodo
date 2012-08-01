@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using SimpleTodo.Migrations;
 
 namespace SimpleTodo.Models
 {
@@ -33,6 +34,11 @@ namespace SimpleTodo.Models
         public TodoItem GetSelected()
         {
             return List.Find(SelectedTodo);
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, Configuration>());
         }
     }
 }

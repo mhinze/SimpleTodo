@@ -3,6 +3,8 @@ _ReSharper.*
 *.resharper
 
 #Visual Studio Files
+obj/
+bin/
 
 #nuGet Packages
 packages/
