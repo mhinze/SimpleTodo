@@ -73,14 +73,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201207310229086_RemoveIsChecked.cs" />
-    <Compile Include="Migrations\201207310229086_RemoveIsChecked.Designer.cs">
-      <DependentUpon>201207310229086_RemoveIsChecked.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201207312042445_AddedMattEntity.cs" />
-    <Compile Include="Migrations\201207312042445_AddedMattEntity.Designer.cs">
-      <DependentUpon>201207312042445_AddedMattEntity.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Context.cs" />
