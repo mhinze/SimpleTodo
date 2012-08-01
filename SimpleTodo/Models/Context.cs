@@ -39,6 +39,7 @@ namespace SimpleTodo.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, Configuration>());
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
