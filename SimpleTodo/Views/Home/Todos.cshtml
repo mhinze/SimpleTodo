@@ -4,12 +4,14 @@
     ViewBag.Title = "Todos";
 }
 
-<h2>Todo Lists</h2>
+<div class="page-header">
+    <h1>Todo Lists</h1>
+</div>
 
 @using (Html.BeginForm("PromoteTodo", "Home"))
 {
     <div>
-        <p>@Html.ActionLink("Create Todo", "CreateTodo")</p>
+        <p>@Html.ActionLink("Create Todo", "CreateTodo", null, new {@class="btn btn-primary"})</p>
         <fieldset>
             <legend>Pending</legend>
             @foreach (var todoItem in Model.GetTodos())
