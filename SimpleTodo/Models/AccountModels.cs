@@ -27,5 +27,8 @@ namespace SimpleTodo.Models
 
         [Display(Name = "Remember me!?")]
         public bool RememberMe { get; set; }
+
+        //This is a test variable, to test explicit migrations and deployment to apphbr.
+        public bool TestBool { get; set; }
     }
 }
