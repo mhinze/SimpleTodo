@@ -1,4 +1,4 @@
-﻿@model SimpleTodo.Models.Context
+﻿@model SimpleTodo.Controllers.HomeController.TodoListViewModel
 
 @{
     ViewBag.Title = "Todos";
@@ -14,22 +14,30 @@
         <p>@Html.ActionLink("Create Todo", "CreateTodo", null, new {@class="btn btn-primary"})</p>
         <fieldset>
             <legend>Pending</legend>
-            @foreach (var todoItem in Model.GetTodos())
+            @if (!Model.NotStarted.Any())
             {
-                <p>
-                    @Html.RadioButtonFor(s => s.SelectedTodo, todoItem.Id)
-                    @todoItem.Content
-                </p>
+                <p>They are no todo list items yet.  Why doncha make one?</p>
             }
+            else
+            {
+                foreach (var todoItem in Model.NotStarted)
+                {
+                    <p>
+                        @Html.RadioButton("SelectedTodo", todoItem.Id)
+                        @todoItem.Content
+                    </p>
+                }
+            }
+            
         </fieldset>
         <fieldset>
             <legend>In Progress</legend>
-            @{var doing = Model.GetDoing();}
-            @if(doing != null)
+            @{var doing = Model.InProgress;}
+            @if (doing != null)
             {
                 var timeinprogress = DateTime.Now - doing.Updated;
                 <p>
-                    @Html.RadioButtonFor(s => s.SelectedTodo, doing.Id)
+                    @Html.RadioButton("SelectedTodo", doing.Id)
                     @doing.Content - in progress for 
                     @timeinprogress.ToString("hh") :
                     @timeinprogress.ToString("mm") :

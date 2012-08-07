@@ -7,6 +7,7 @@ namespace SimpleTodo.Models
 {
     public class Context : DbContext
     {
+        
         public DbSet<LogOnModel> Users { get; set; }
 
         public int SelectedTodo { get; set; }

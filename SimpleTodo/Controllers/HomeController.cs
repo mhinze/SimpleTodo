@@ -7,7 +7,6 @@ namespace SimpleTodo.Controllers
 {
     public class HomeController : Controller
     {
-
         public ActionResult Index()
         {
             ViewBag.Message = "Welcome to SimpleTodo!";
@@ -30,45 +29,64 @@ namespace SimpleTodo.Controllers
         [HttpPost]
         public ActionResult CreateTodo(TodoItem model)
         {
-            var context = new Context();
-            if(ModelState.IsValid && (model.Content != null))
+            if(ModelState.IsValid)
             {
-                try
+                using (var context = new Context())
                 {
                     context.List.Add(model);
                     context.SaveChanges();
-                } 
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.StackTrace);
+                    return RedirectToAction("Todos", "Home");
                 }
             }
-
-            return RedirectToAction("Todos", "Home");
+            return View();
         }
+
+        
 
         [HttpGet]
         public ActionResult Todos()
         {
-            var context = new Context();
-            return View(context);
+            using (var context = new Context())
+            {
+                var todoListViewModel = new TodoListViewModel
+                    {
+                        InProgress = context.List.SingleOrDefault(x => x.Status == TodoStatus.InProgress), 
+                        NotStarted = context.List.AsNoTracking().Where(x => x.Status == TodoStatus.Todo).ToArray()
+                    };
+                
+                return View(todoListViewModel);
+            }
         }
 
-        [HttpPost]
-        public ActionResult PromoteTodo(Context context)
+        public class TodoListViewModel
         {
-            var doing = context.GetDoing();
-            var selected = context.GetSelected();
-            if (doing == selected)
+            public TodoItem[] NotStarted { get; set; }
+            public TodoItem InProgress { get; set; }
+        }
+        
+        
+        [HttpPost]
+        public ActionResult PromoteTodo(int SelectedTodo)
+        {
+            using (var context = new Context())
             {
-                context.List.Remove(selected);
-            }else if (doing == null)
-            {
-                selected.Promote();
-                selected.Updated = DateTime.Now;
-            }
+                // this will return null if it doesn't exist
+                var selected = context.List.Find(SelectedTodo);
+                var doing = context.GetDoing();
 
-            context.SaveChanges();
+                if (doing == selected)
+                {
+                    context.List.Remove(selected);
+                }
+                else if (doing == null)
+                {
+                    selected.Promote();
+                    selected.Updated = DateTime.Now;
+                }
+
+                context.SaveChanges();    
+            }
+            
             return RedirectToAction("Todos", "Home");
         }
     }

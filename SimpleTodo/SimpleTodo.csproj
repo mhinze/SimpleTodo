@@ -82,6 +82,7 @@
     <Compile Include="Models\Context.cs" />
     <Compile Include="Models\EntityModel.cs" />
     <Compile Include="Models\TodoModels.cs" />
+    <Compile Include="Models\TodoStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace SimpleTodo.Models
 {
     public class TodoItem : Entity
     {
+        [Required]
         public string Content { get; set; }
 
         public string Status { get; private set; }
