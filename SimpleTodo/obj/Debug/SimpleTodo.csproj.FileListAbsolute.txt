@@ -1,8 +1,0 @@
-c:\users\jcrowe\documents\visual studio 2010\Projects\SimpleTodo\SimpleTodo\bin\SimpleTodo.dll
-c:\users\jcrowe\documents\visual studio 2010\Projects\SimpleTodo\SimpleTodo\bin\SimpleTodo.pdb
-c:\users\jcrowe\documents\visual studio 2010\Projects\SimpleTodo\SimpleTodo\bin\EntityFramework.dll
-c:\users\jcrowe\documents\visual studio 2010\Projects\SimpleTodo\SimpleTodo\bin\System.Data.SqlServerCe.dll
-c:\users\jcrowe\documents\visual studio 2010\Projects\SimpleTodo\SimpleTodo\bin\EntityFramework.xml
-c:\users\jcrowe\documents\visual studio 2010\Projects\SimpleTodo\SimpleTodo\obj\Debug\ResolveAssemblyReference.cache
-c:\users\jcrowe\documents\visual studio 2010\Projects\SimpleTodo\SimpleTodo\obj\Debug\SimpleTodo.dll
-c:\users\jcrowe\documents\visual studio 2010\Projects\SimpleTodo\SimpleTodo\obj\Debug\SimpleTodo.pdb
